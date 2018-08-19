@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true"
+	xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss yyyy-MM-dd} %-5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+		<param name="append" value="false" />
+		<param name="maxFileSize" value="10MB" />
+		<param name="maxBackupIndex" value="10" />
+		<param name="file" value="C:\\log\\loggingXml.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss yyyy-MM-dd} %-5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="DB" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="URL" value="jdbc:mysql://localhost:3306/spring-hibernate-jpa?useSSL=false" />
+		<param name="user" value="root" />
+		<param name="password" value="222Network" />
+		<layout class="org.apache.log4j.PatternLayout" >
+			<param name="ConversionPattern" value="INSERT INTO logs VALUES('%C','%p','%m','%d')"/>
+		</layout>	
+	</appender>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+		<appender-ref ref="DB" />
+	</root>
+
+</log4j:configuration>
